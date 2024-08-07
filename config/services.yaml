@@ -19,6 +19,16 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Tests/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Service\CustomerImporter:
+        public: true
+
+    App\Command\ImportCustomersCommand:
+        arguments:
+            # $importerService: '@app.importer_service'
+            - '@App\Service\CustomerImporter'
+        tags:
+            - { name: 'console.command' }
